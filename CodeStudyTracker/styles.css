@@ -1,0 +1,140 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    height: 90%;
+    display: inline-flex;
+}
+
+.today {
+    width: 60%;
+    height: 100%;
+    background-color: steelblue;
+    display: flex;
+    flex-direction: column;
+}
+
+.topSection {
+    width: 100%;
+    height: 15%;
+    
+}
+
+.bottomSection {
+    width: 100%;
+    height: 85%;
+    display: inline-flex;
+}
+
+/* form */
+
+.add-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.dayWindow {
+    width: 65%;
+    height: 100%;
+    margin-left: 50px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+footer {
+    width: 100%;
+    height: 10%;
+    background-color: black;
+}
+
+/* day window */
+
+/* task styles classes */
+
+.taskGeneral {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+
+}
+
+.taskSection1 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .URLSection {
+    display: flex;
+    flex-direction: column;
+} */
+
+
+.taskBottoms {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.TUTORIAL {
+    background-color: tomato;
+}
+
+.READING {
+    background-color: palegreen;
+}
+
+.CODING_CHALLANGE {
+    background-color: peachpuff;
+}
+
+.PROJECT {
+    background-color: goldenrod;
+}
+
+/*  INPUT SCREEN */
+.inputSection {
+    width: 80%;
+}
+
+.submitInputScreen {
+    display: inline-flex;
+}
+
+.topInputScreen, .bottomInputScreen{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.resultSection, .notesSection {
+    display: inline-flex;
+}
+
+.resultSection h3, .notesSection h3 {
+    margin: 0px;
+    width: 100px;
+}
+
+.notesSection {
+    margin-top: 15px;
+}
+
+.notesSection .inputBox {
+    height: 3em;
+}
+
+.taskInput {
+    width: 80%;
+}
+
+.inputBox {
+    width: 80%;
+}
+
+
