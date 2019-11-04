@@ -6,46 +6,48 @@
     <title>CodeStudyTracker</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
     
 </head>
 <body>
     <div class="container">
-        <div class="today">
-            <div class="topSection">
+        <header class="topSection">
+            <h1 class="title">CodeStudyTracker</h1>
+            <div class="welcome"><h2>daily planner // to-do list // journal entry generator</h2></div>
+            <div class="topDisplay"><h2>CURRENT TASK: <span class="display__currentTask"></span></h2><h2>TIME LEFT: <span class='display__time-left'></span></div></h2>
+        </header>
 
-            </div>
-
-            <div class="bottomSection">
+        <div class="columns">
+ 
                 <div class="dayWindow">
                     <!-- LIVE TASKS GO HERE -->
                 </div>
-                <div class="addTaskSection">
-                    <div class="setDayAndType"></div>
-                    <div class="addTask">
-                        <form class="add-items">
-                            <p class="formInfo">TASK TYPE</p>
-                            <select name="task">
-                                    <option value="TUTORIAL">TUTORIAL</option>
-                                    <option value="READING">ARTICLE/BOOK</option>
-                                    <option value="CODING_CHALLANGE">CODING CHALLANGE/KATA</option>
-                                    <option value="PROJECT">PROJECT</option>
-                                  </select>
-                            <p class="formInfo">TITLE:</p>
-                            <input type="text" name="title" placeholder="Item Name" required>
-                            <p class="formInfo">TASK URL:</p>
-                            <input type="text" name="taskUrl" placeholder="Item Name">
-                            <p class="formInfo">TIME:</p>
-                            <input type="text" name="taskTime" placeholder="Item Name" required>
-                            <input type="submit" value="+ Add Item">
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
+
+        <div class="addTask">
+                <form class="add-items">
+                    <p class="formInfo">TASK TYPE</p>
+                    <select name="task">
+                            <option value="TUTORIAL">TUTORIAL</option>
+                            <option value="READING">ARTICLE/BOOK</option>
+                            <option value="CODING_CHALLANGE">CODING CHALLANGE/KATA</option>
+                            <option value="PROJECT">PROJECT</option>
+                          </select>
+                    <p class="formInfo">TITLE:</p>
+                    <input type="text" name="title" placeholder="Item Name" required>
+                    <p class="formInfo">TASK URL:</p>
+                    <input type="text" name="taskUrl" placeholder="Item Name">
+                    <p class="formInfo">TIME:</p>
+                    <input type="text" name="taskTime" placeholder="min" required>
+                    <input type="submit" value="+ Add Item" class="myButton">
+                </form>
         </div>
+
+        <div class="logSection">
         <div class="log">
             <div class="logTop">
                 <h3 class="logH">DATE:<span id="logDate"></span></h3>
-                <h3 class="logH">CODING TIME:<span id="logCodingTime"></span></h3>
+                <h3 class="logH">CODING TIME:<span id="logCodingTime"></span>min</h3>
                 <h3 class="logH">TASKS COMPLETED:<span id="logTasksCompleted"></span></h3>
             </div>
         </div>
@@ -54,10 +56,14 @@
             <!-- COMPLETED TASKS GO HERE -->
         </div>
         
+        </div>
+        </div>
     </div>
+
+
     <footer>
             
-        </footer>   
+    </footer>   
     
 <script src='dayTasks1.js'></script>   
 </body>

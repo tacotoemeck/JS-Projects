@@ -2,55 +2,105 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
+
+    font-family: 'Lora', serif;
+}
+
+h1, h2, h3, h4 {
+    margin: 5px;
 }
 
 .container {
     width: 100%;
     height: 90%;
-    display: inline-flex;
-}
-
-.today {
-    width: 60%;
-    height: 100%;
-    background-color: steelblue;
     display: flex;
     flex-direction: column;
 }
 
+
+
 .topSection {
     width: 100%;
-    height: 15%;
+    height: auto;
+    background-color: #8fc1e3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     
 }
 
-.bottomSection {
-    width: 100%;
-    height: 85%;
+
+
+.topDisplay {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin: 5px;
+    margin-bottom: 20px;
+    background:#895061;
+    border-radius: 5px;
+    
+}
+
+.topDisplay h2 {
     display: inline-flex;
 }
+
+.topDisplay span {
+    margin-left: 10px;
+}
+
+.columns {
+    display: inline-flex;
+    justify-content: center;
+    height: 100%;
+    background: #8fc1e3;
+}
+
+.dayWindow, .logSection {
+    width: 40%;
+    height: 100%;
+    background-color: #f7f9fb;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+.dayWindow {
+    margin-left: 50px;
+}
+
+
+
+.logSection {
+    margin-right: 50px;
+}
+
+.addTask {
+    width: 15%;
+}
+
 
 /* form */
 
 .add-items {
+    margin: 10px;
     display: flex;
     flex-direction: column;
 }
 
-.dayWindow {
-    width: 65%;
-    height: 100%;
-    margin-left: 50px;
-    background-color: whitesmoke;
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+.add-items > .myButton {
+    margin-top: 15px;
 }
+
+
 
 footer {
     width: 100%;
     height: 10%;
-    background-color: black;
+    background-color: #8fc1e3;
 }
 
 /* day window */
@@ -61,6 +111,10 @@ footer {
     width: 100%;
     display: inline-flex;
     justify-content: space-between;
+    border-radius: 5px;
+    padding-top:15px;
+    padding-bottom:15px;
+    z-index: 100;
 
 }
 
@@ -82,19 +136,19 @@ footer {
 }
 
 .TUTORIAL {
-    background-color: tomato;
+    background-color: #31708e;
 }
 
 .READING {
-    background-color: palegreen;
+    background-color: #5085a5;
 }
 
 .CODING_CHALLANGE {
-    background-color: peachpuff;
+    background-color: #895061;
 }
 
 .PROJECT {
-    background-color: goldenrod;
+    background-color: #78244c;
 }
 
 /*  INPUT SCREEN */
@@ -117,7 +171,7 @@ footer {
 }
 
 .resultSection h3, .notesSection h3 {
-    margin: 0px;
+    
     width: 100px;
 }
 
@@ -131,10 +185,46 @@ footer {
 
 .taskInput {
     width: 80%;
+    
 }
 
 .inputBox {
     width: 80%;
+    margin: 5px;
 }
+
+/* buttons */
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	
+	background-color:#687864;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+    
+}
+.myButton:hover {
+	
+	background-color:#31708e;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.pauseButton {
+    display: none;
+}
+
+
 
 
