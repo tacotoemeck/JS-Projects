@@ -7,7 +7,7 @@ let pause = false;
 
 const addItems = document.querySelector('.add-items');
 const dayTasks = document.querySelector('.dayWindow');
-const listItems = [];
+const listItems = JSON.parse(localStorage.getItem('listItems')) || [];
 
 let today;
 let dateFormated;
@@ -15,6 +15,7 @@ let dateFormated;
 let taskInProgress = false;
 
 let currentTask;
+let taskInProgressIndex;
 const topDiplay = document.querySelector('.topDisplay');
 const displayDate = document.getElementById('logDate');
 
@@ -27,6 +28,10 @@ let totalCodingTime = 0;
 let totalCodingTimeDisplay = document.getElementById('logCodingTime')
 
 let overTime;
+
+
+
+
  
 
 
@@ -53,6 +58,7 @@ function addItem(event) {
         title,
         duration,
         timeLeft: 0,
+        startOrPause: 'START TASK',
         taskUrl,
         resultUrl: `
         <form class="taskInput">
@@ -65,6 +71,7 @@ function addItem(event) {
             <input type="text" name="notesInput" placeholder="any comments?" class="inputBox">
             <input type="submit" value="ADD" class="notesSubmit">
         </form>`,
+        notesSubmited: false,
         taskScreenDisplay: '',
         finishTaskDisplay: 'none',
         timeCompleted: 0,
@@ -73,6 +80,8 @@ function addItem(event) {
     };
     listItems.push(item);
     populateToDo(listItems, dayTasks);
+    localStorage.removeItem('listItems')
+    localStorage.setItem('listItems', JSON.stringify(listItems))
     this.reset();
 };
 
@@ -82,12 +91,12 @@ function populateToDo(tasks = [], taskList) {
         <div data-index="${i}" class="taskGeneral ${task.taskType}" style="height: auto; display:${task.taskScreenDisplay};">
             <div class="taskSection1">
             <h3>${task.taskType} : ${task.title}</h3>
-            <h3>Allocated Time:${task.duration}min</h3>
+            <h3>Allocated Time:${Math.ceil(task.duration)}min</h3>
 
             <h3>Task URL:${task.taskUrl}</h3>
             
             </div>
-            <div class="taskBottoms"><button class="startButton myButton">START TASK</button><button class="finishButton myButton">FINISH</button><button class="deleteButtonClass myButton">DELETE</button></div>
+            <div class="taskBottoms"><button class="startButton myButton">${task.startOrPause}</button><button class="finishButton myButton">FINISH</button><button class="deleteButtonClass myButton">DELETE</button></div>
         </div>
         <div data-index="${i}" class="submitInputScreen taskGeneral ${task.taskType}" style="display: ${task.finishTaskDisplay}; height:auto;">
         <div class="inputSection">
@@ -133,11 +142,12 @@ function addResultURL(e) {
         // remove orginal
         // resultArea.parentNode.removeChild(resultArea);
         // amend the result section with the new url
-        listItems[index].resultUrl = `
-        <h3>${resultUrlInput}</h3>
-        `;
-        listItems[index].result = 'true';
+        listItems[index].resultUrl = `${resultUrlInput}`;
+        listItems[index].result = true;
         // refresh the page section
+        
+
+
         populateToDo(listItems, dayTasks);
     }
 }
@@ -151,9 +161,8 @@ function addNotes(e) {
         let notesInputSection = (this.querySelector('[name=notesInput]')).value; 
       
         let index = e.target.parentNode.parentNode.dataset.index;   
-        listItems[index].notes = `
-        <h3>${notesInputSection}</h3>
-        `;
+        listItems[index].notes = `${notesInputSection}`;
+        listItems[index].notesSubmited = true;
 
         populateToDo(listItems, dayTasks);
     }
@@ -174,9 +183,17 @@ function deleteTask(e) {
         let targetElem = e.target;
         let index = e.target.parentNode.parentNode.dataset.index;
         listItems.splice(index,1);
-        clearInterval(overTime);
-        clearInterval(countdown);
+        
         populateToDo(listItems, dayTasks);
+
+        deleteFromLocal(localStorage.listItems, index)
+
+        if (taskInProgressIndex == index ) {
+            clearInterval(overTime);
+            clearInterval(countdown);
+        }
+
+
     }
 }
 
@@ -198,10 +215,15 @@ function finishTask(e) {
 
         clearInterval(overTime);
         clearInterval(countdown);
+
+        
         
         populateToDo(listItems, dayTasks);
     }
 }
+
+
+
 
 dayTasks.addEventListener('click', finishTask);
 // add function that takes an element and after clicking finish loggs it into the log section 
@@ -209,10 +231,14 @@ dayTasks.addEventListener('click', finishTask);
 // LOG LIVE SECTION
 
 let logLiveSection=  document.querySelector('.logLive')
+logLiveSection.innerHTML = localStorage.getItem('logEntry')
 
 // SUBMIT FUNCTION
 
 function submitFinal(e) {
+
+    
+
     if ( !e.target.matches('.submitButton')) return;
     else {
         taskInProgress = false;
@@ -223,52 +249,100 @@ function submitFinal(e) {
         let taskTime = Math.ceil((taskFinishedAt - now ) / 60000);
         
         
-        listItems[index].timeCompleted = taskTime;
+        listItems[index].timeCompleted = (!isNaN(taskTime)) ? taskTime : 0;
         listItems[index].taskScreenDisplay = '';
         
-        totalCodingTimeDisplay.innerHTML= Number(totalCodingTimeDisplay.innerHTML) + Number(taskTime);
-        console.log(typeof totalCodingTimeDisplay.innerHTML)
+        totalCodingTimeDisplay.innerHTML= Number(totalCodingTimeDisplay.innerHTML) + Number((!isNaN(taskTime)) ? taskTime : 0);
+        localStorage.setItem('totalTimeCoding', totalCodingTimeDisplay.innerHTML)
 
         logLiveSection.innerHTML+=`
-        <div data-index="${index}">
-        <hr>
-        <p>TASK TYPE : ${listItems[index].taskType}</p>
-        <p>TITLE : ${listItems[index].title}</p>
-        <p>COMPLETED IN : ${listItems[index].timeCompleted}min</p>
-        <p>TASK URL : ${listItems[index].taskUrl}</p>
-        <p>RESULT : ${listItems[index].resultUrl}</p>
-        <p>NOTES : ${listItems[index].notes}</p>
-        <hr>
-        </div>
+TASK TYPE : ${listItems[index].taskType}
+TITLE : ${listItems[index].title}
+COMPLETED IN : ${checkForDuration(e)}
+TASK URL : ${listItems[index].taskUrl}
+RESULT : ${checkForResult(e, listItems[index].result, listItems[index].resultUrl)}
+NOTES : ${checkForResult(e, listItems[index].notesSubmited, listItems[index].notes)}
+        
         `
-
-
+        
         listItems.splice(index,1);
         populateToDo(listItems, dayTasks);
         completedTasksCounter++;
+        localStorage.setItem('completedTasksCounter', completedTasksCounter)
 
         updateCurrentTaskDisplay()
         countCompletedTasks()
+
+        localStorage.setItem('logEntry', logLiveSection.innerHTML)
+        deleteFromLocal(localStorage.listItems, index)
     }
 }
 
 dayTasks.addEventListener('click', submitFinal);
 
+// delete from local storage 
+
+function deleteFromLocal(storage, i) {
+    
+    let parsed = JSON.parse(storage)
+    
+    parsed.splice(i, 1)
+    
+    localStorage.removeItem('listItems')
+    localStorage.setItem('listItems', JSON.stringify(parsed))
+    
+    // localStorage.removeItem('listItems',JSON.parse(storage))
+}
+
+// check if result has been submited
+// check if notes have been submited
+
+function checkForResult(e, expected, check) {
+    let index = e.target.parentNode.parentNode.dataset.index;
+    
+    if ( expected == false ) {
+        return 'n/a';
+    }
+    else {
+        return check;
+    }
+
+}
+
+// check if completion time has been specified
+
+function checkForDuration(e) {
+    let index = e.target.parentNode.parentNode.dataset.index;
+
+    if ( listItems[index].timeCompleted == 0 ) return 'not specified  '
+    else {
+        return listItems[index].timeCompleted + 'min'
+    }
+}
 
 // timer
 
 
 
 function timer(e, seconds) {
-    
+    let index = e.target.parentNode.parentNode.dataset.index;
 
     if ( e.target.innerHTML=='START TASK') {
 
+
+    if (taskInProgress == true && taskInProgressIndex != index ) {
+        alert("Other task currently in progress, finish what you started you dong") 
+        return;
+    }
+    
+    listItems[index].startOrPause = 'PAUSE';
     e.target.innerHTML = "PAUSE";
     pause = false;
     taskInProgress = true;
+    taskInProgressIndex = index;
+    
 
-    let index = e.target.parentNode.parentNode.dataset.index;
+    
     
     currentTask = `${listItems[index].taskType} - ${listItems[index].title}`
     seconds = listItems[index].duration * 60;
@@ -295,9 +369,10 @@ function timer(e, seconds) {
 }
 
 else if ( e.target.innerHTML == 'PAUSE') {
-    let index = e.target.parentNode.parentNode.dataset.index;
+    // let index = e.target.parentNode.parentNode.dataset.index;
   
     listItems[index].duration = secondsLeft / 60
+    listItems[index].startOrPause = 'START TASK';
     e.target.innerHTML = "START TASK";
     pauseTimer()
 }
@@ -354,6 +429,7 @@ function pauseTimer() {
    
     if ( pause == false ) {
     clearInterval(countdown);  
+    
     pause = true;
     // hidePlayPause();
     seconds = secondsLeft;
@@ -403,8 +479,10 @@ function accumulateAllCodingTime() {
 function todayDate() {
     today = new Date();
     
-    dateFormated = `${today.getDay()} / ${today.getMonth()} / ${today.getFullYear()}`;
+    
+    dateFormated = `${today.getDate()} / ${today.getMonth()+1} / ${today.getFullYear()}`;
     displayDate.innerHTML = dateFormated;
+    
 
 }
 
@@ -420,7 +498,7 @@ function countCompletedTasks() {
     completedTasksCounterDisplay.innerHTML = completedTasksCounter;
 }
 
-countCompletedTasks()
+// countCompletedTasks()
 
 
 
@@ -428,8 +506,71 @@ countCompletedTasks()
 
 // add to clipboard
 
-// add social media tags
+let copyTextareaBtn = document.querySelector('.copyToClipboardBtn');
 
-// add local storage
+copyTextareaBtn.addEventListener('click', function(event) {
+  let copyTextarea = document.querySelector('.logLive');
+  copyTextarea.focus();
+  copyTextarea.select();
+
+  try {
+    let successful = document.execCommand('copy');
+    let msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+});
+
+// ADD SUMMARY TO LOG
+
+const logTop = document.querySelector('#logTop');
+let addSummaryBtn = document.querySelector('.addSummaryBtn');
+addSummaryBtn.addEventListener('click', addSummaryToLog);
+
+function addSummaryToLog() {    
+logLiveSection.innerHTML = `${logTop.innerText} ${logLiveSection.innerHTML}`;
+}
+
+
+// check if there's task in progress
+
+// check local storage for coding time and completed tasks
+function checkLocalStorageForLogInfo() {
+
+    if ( localStorage.totalTimeCoding != undefined) {
+        totalCodingTimeDisplay.innerHTML = localStorage.totalTimeCoding
+    }
+
+    if ( localStorage.completedTasksCounter != undefined ) {
+        completedTasksCounterDisplay.innerHTML = localStorage.completedTasksCounter
+    }
+
+    // localStorage.setItem('totalTasksCounter', completedTasksCounter)
+    // localStorage.setItem('totalTimeCoding', totalCodingTimeDisplay.innerHTML) 
+}
+
+checkLocalStorageForLogInfo()
+
+// clear local storage 
+
+const clearSummaryBtn = document.querySelector('.clearSummaryBtn');
+
+function clearToplog() {
+    
+    localStorage.removeItem('completedTasksCounter');
+    localStorage.removeItem('totalTimeCoding')
+    totalCodingTimeDisplay.innerHTML = 0;
+    completedTasksCounterDisplay.innerHTML = 0;
+    completedTasksCounter = 0;
+    let totalCodingTime = 0;
+
+}
+
+clearSummaryBtn.addEventListener('click', clearToplog)
+
+
 
 // add pulsing motiong to the topDisplay while task in progress
+
+populateToDo(listItems, dayTasks)

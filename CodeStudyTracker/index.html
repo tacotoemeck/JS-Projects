@@ -5,8 +5,9 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>CodeStudyTracker</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles1.css'>
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/794b746eef.js" crossorigin="anonymous"></script>
     
 </head>
 <body>
@@ -46,15 +47,21 @@
         <div class="logSection">
         <div class="log">
             <div class="logTop">
+              <span id="logTop">
                 <h3 class="logH">DATE:<span id="logDate"></span></h3>
                 <h3 class="logH">CODING TIME:<span id="logCodingTime"></span>min</h3>
                 <h3 class="logH">TASKS COMPLETED:<span id="logTasksCompleted"></span></h3>
+                <button class="clearSummaryBtn">CLEAR SUMMARY</button>
+              </span>
+              <span class="logBtns">
+                <button class="addSummaryBtn">ADD SUMMARY TO LOG</button><button class="copyToClipboardBtn">copy to clipboard</button>
+              </span>
             </div>
         </div>
 
-        <div class="logLive">
-            <!-- COMPLETED TASKS GO HERE -->
-        </div>
+        <textarea class="logLive">
+        
+        </textarea>
         
         </div>
         </div>
@@ -62,6 +69,13 @@
 
 
     <footer>
+        <div class="contactlinks">
+            <a href="https://twitter.com/TomaszWagner1"  class="footerLinks"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/tom-wagner-29126931/" class="footerLinks"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/tacotoemeck" class="footerLinks"><i class="fab fa-github"></i></a>
+            <a href="https://codepen.io/tacotomek" class="footerLinks"><i class="fab fa-codepen"></i></a>
+            <a href="https://codepen.io/tacotomek" class="footerLinks"><i class="fab fa-free-code-camp"></i></i></a>
+        </div>
             
     </footer>   
     

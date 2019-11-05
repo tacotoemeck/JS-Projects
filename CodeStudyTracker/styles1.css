@@ -1,0 +1,294 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    font-family: 'Lora', serif;
+}
+
+h1, h2, h3, h4 {
+    margin: 5px;
+}
+
+.container {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.topSection {
+    width: 100%;
+    height: auto;
+    background-color: #8fc1e3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+
+.topDisplay {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin: 5px;
+    margin-bottom: 20px;
+    background:#895061;
+    border-radius: 5px;
+    
+}
+
+.topDisplay h2 {
+    display: inline-flex;
+}
+
+.topDisplay span {
+    margin-left: 10px;
+}
+
+.columns {
+    display: inline-flex;
+    justify-content: center;
+    height: 100%;
+    background: #8fc1e3;
+}
+
+.dayWindow, .logSection {
+    width: 40%;
+    height: 100%;
+    background-color: #f7f9fb;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+.dayWindow {
+    margin-left: 50px;
+}
+
+
+
+.logSection {
+    margin-right: 50px;
+}
+
+.addTask {
+    width: 15%;
+}
+
+
+/* form */
+
+.add-items {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-items > .myButton {
+    margin-top: 15px;
+}
+
+
+
+footer {
+    width: 100%;
+    height: 10%;
+    background-color: #8fc1e3;
+}
+
+/* day window */
+
+/* task styles classes */
+
+.taskGeneral {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding-top:15px;
+    padding-bottom:15px;
+    z-index: 100;
+
+}
+
+.taskSection1 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .URLSection {
+    display: flex;
+    flex-direction: column;
+} */
+
+
+.taskBottoms {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.TUTORIAL {
+    background-color: #31708e;
+}
+
+.READING {
+    background-color: #5085a5;
+}
+
+.CODING_CHALLANGE {
+    background-color: #895061;
+}
+
+.PROJECT {
+    background-color: #78244c;
+}
+
+/*  INPUT SCREEN */
+.inputSection {
+    width: 80%;
+}
+
+.submitInputScreen {
+    display: inline-flex;
+}
+
+.topInputScreen, .bottomInputScreen{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.resultSection, .notesSection {
+    display: inline-flex;
+}
+
+.resultSection h3, .notesSection h3 {
+    
+    width: 100px;
+}
+
+.notesSection {
+    margin-top: 15px;
+}
+
+.notesSection .inputBox {
+    height: 3em;
+}
+
+.taskInput {
+    width: 80%;
+    
+}
+
+.inputBox {
+    width: 80%;
+    margin: 5px;
+}
+
+/* buttons */
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	
+	background-color:#687864;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+    
+}
+.myButton:hover {
+	
+	background-color:#31708e;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+/* log section bts */
+.logBtns {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.logLive {
+    height: 100%;
+}
+
+/* footer */
+
+footer {
+    width: 100%;
+    height: 20%;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+footer a {
+    text-decoration: none;
+    color: white; 
+  }
+
+  .contactlinks {
+      width: 80%;
+      height: 30%;
+      background-color:#687864;
+      border-radius: 5px;
+      display: inline-flex;
+      color: whitesmoke;
+      font-size: 2.5em;
+      justify-content: space-around;
+      align-items: center;
+
+  }
+
+  .contactlinks a {
+      text-decoration: none;
+      color: white;
+      transition: .5s;
+  }
+
+
+  .contactlinks a:hover {
+    
+    animation: pulse 2s infinite;
+    
+  }
+    
+  @keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+
