@@ -1,0 +1,41 @@
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1474524955719-b9f87c50ce47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Shadows Into Light Two', cursive;
+}
+
+.jumbotron {
+    padding-bottom: 10px;
+    opacity: 0.8;
+}
+
+.quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 4vh;
+}
+
+#author {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    font-size:3vh;
+}
+
+#tweet-quote {
+    background: none;
+    border: none;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+}
