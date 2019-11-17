@@ -5,7 +5,7 @@ const quotesArr = [];
 let index = 0;
 
 const newQuote = document.getElementById('new-quote');
-const tweetQuote = document.getElementById('tweetQuote');
+const tweetQuote = document.getElementById('tweet-quote');
 const background = document.querySelector('body')
 
 let tweetableUrl = '';
@@ -30,31 +30,25 @@ function generateNewQuote() {
     textContent.innerHTML = quotesArr[index].quote
     authorContent.innerHTML = quotesArr[index].author
 
+    setTimeout(function () {
+        tweetableUrl = makeTweetableUrl(quotesArr[index].quote, quotesArr[index].author, currentPageUrl);
+        tweetQuote.setAttribute('href', tweetableUrl);
+        tweetQuote.onclick = onClickToTweet;
+
+    }, 200);
 
 }
 
 newQuote.addEventListener('click', generateNewQuote)
 
 setTimeout(function () {
-    index = generateRandomIndex(1, quotesArr.length)
-    textContent.innerHTML = quotesArr[index].quote
-    authorContent.innerHTML = quotesArr[index].author
-
-    tweetableUrl = makeTweetableUrl(textContent.innerText, currentPageUrl);
-    tweetQuote.setAttribute('href', tweetableUrl);
-    tweetQuote.onclick = onClickToTweet;
-
-    let tweetContect = encodeURIComponent(textContent.innerHTML);
-
-}, 500);
+    generateNewQuote()
+}, 700);
 
 
 
-
-
-
-function makeTweetableUrl(text, pageUrl) {
-    const tweetableText = "https://twitter.com/intent/tweet?url=" + "&text=" + encodeURIComponent(text);
+function makeTweetableUrl(text, author, pageUrl) {
+    const tweetableText = "https://twitter.com/intent/tweet?url=" + "&text=" + '"' + encodeURIComponent(text) + '" ' + ' -' + encodeURIComponent(author) + '-';
     return tweetableText;
 }
 
