@@ -10,12 +10,12 @@ let currentFormula = [];
 let currentValue = [0];
 let valueEntered = false;
 
-const operatorValues = ['/', '*', '+', '-']
+const operatorValues = ['/', '*', '+']
 
 function updateCurrentValue() {
 
 
-    if (this.classList.value == 'number' || this.id == 'subtract' || this.id == 'decimal') {
+    if (this.classList.value == 'number' || this.id == 'subtract' || this.id == 'decimal' || this.id == 'add') {
 
         switch (this.innerText) {
             case '-':
@@ -23,12 +23,22 @@ function updateCurrentValue() {
                     currentValue = ['-']
                     displayCurrentValue()
                 }
+                if (currentValue == '-') {
+                    return;
+                }
                 else {
                     currentFormula += currentValue;
                     displayCurrentFormula();
                     currentValue = ['-']
                     displayCurrentValue();
                 }
+                break;
+            case '+':
+                currentFormula += currentValue;
+                displayCurrentFormula()
+                currentValue = this.innerText;
+                displayCurrentValue()
+                console.log('add')
                 break;
 
             case '.':
@@ -77,28 +87,10 @@ function displayCurrentFormula() {
     formulaDisplay.innerText = currentFormula;
 }
 
-// function operatorAction() {
-//     if (!operatorValues.includes(this.innerText)) {
-//         currentFormula += currentValue;
-//     }
-//     if (operatorValues.includes(this.innerText)) {
-//         console.log('ok')
-//         currentValue = this.innerText;
-//         displayCurrentValue()
-//         return;
+function operatorAction() {
 
-//     }
+}
 
-//     if (this.classList.value == 'operator' || this.id == 'subtract') {
-//         currentFormula += currentValue;
-//         displayCurrentFormula();
-//         currentValue = [this.innerText];
-//         displayCurrentValue();
-
-
-//     }
-// }
-
-// buttons.forEach(button => {
-//     button.addEventListener('click', operatorAction)
-// })
+buttons.forEach(button => {
+    button.addEventListener('click', operatorAction)
+})

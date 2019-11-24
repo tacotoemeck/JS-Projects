@@ -12,7 +12,7 @@ buttons.forEach(button => {
 
 let currentFormula = [];
 let currentValue = [0];
-let currentValueType = 'number';
+let currentValueType = 'empty';
 
 
 // enter number
@@ -21,7 +21,7 @@ function enterNumber() {
     // if current value not empty or a number submit the previous value
 
     if (currentValueType !== 'number') {
-        currentFormula.push(currentValue);
+        currentFormula += currentValue;
         updateCurrentFormula()
         currentValue = [];
         currentValueType = 'number';
@@ -43,17 +43,6 @@ function enterNumber() {
 }
 
 function enterOperator() {
-    if (currentValue == '-' && this.innerText == '-') return;
-
-    if (currentValueType == 'number' && currentValue == '-') {
-        currentFormula[currentFormula.length - 1] = this.innerText;
-        updateCurrentFormula()
-        currentValue = this.innerText;
-        updateCurrentDisplay();
-        currentValue = []
-        currentValueType = 'operator';
-        return;
-    }
     if (currentValueType == 'operator') {
         currentValue = this.innerText;
         updateCurrentDisplay()
@@ -61,11 +50,17 @@ function enterOperator() {
     };
 
     if (currentValueType !== 'operator' && currentValue != '-') {
-        currentFormula.push(currentValue);
+        currentFormula += currentValue;
         updateCurrentFormula();
         currentValue = [];
         currentValueType = 'operator';
     }
+
+    // if (currentValueType !== 'operator' && currentValue == '-') {
+    //     updateCurrentFormula();
+    //     currentValue =+ this.innerText;
+    //     currentValueType = 'operator';
+    // }
 
     currentValue += this.innerText;
     updateCurrentDisplay();
@@ -87,17 +82,14 @@ function updateCurrentFormula() {
     if (currentFormula == 0) {
         currentFormula = [];
     }
-    formulaDisplay.innerText = currentFormula.join('');
+    formulaDisplay.innerText = currentFormula;
 }
 
 function handleSubstract() {
 
-
-    if (currentValue == '-' && this.innerText == '-') return;
-
-    if (currentValueType == 'operator' && this.innerText == '-' || currentValue == 'empty') {
+    if (currentValueType == 'operator' && this.innerText == '-') {
         currentValue = currentValue.split('')
-        currentFormula.push(currentValue[0]);
+        currentFormula += currentValue[0];
         updateCurrentFormula()
         currentValue = this.innerText;
         currentValueType = 'number';
@@ -106,7 +98,8 @@ function handleSubstract() {
     }
 
     if (currentValueType == 'number') {
-        currentFormula.push(currentValue);
+        console.log('that')
+        currentFormula += currentValue;
         updateCurrentFormula();
         currentValue = [];
         currentValueType = 'operator';
@@ -121,7 +114,7 @@ subtract.addEventListener('click', handleSubstract);
 
 function decimalEnter() {
     if (currentValue.includes('.')) {
-
+        console.log('does')
     }
 }
 
@@ -137,22 +130,23 @@ function clearDisplay() {
 clear.addEventListener('click', clearDisplay);
 
 
-equals.addEventListener('click', function () {
-    calculateInOrder(currentFormula)
-    currentFormula = [currentValue];
+// 
+function equalString(str) {
+    let arr = str.split('');
+    calculateInOrder(arr)
+}
 
-    updateCurrentDisplay()
-    updateCurrentFormula();
-    currentValue = [];
-    currentValueType = 'number';
+equals.addEventListener('click', function () {
+    equalString(currentFormula)
+    display.innerText = currentValue;
 
 })
 
 
 function calculateInOrder(arr) {
-
+    console.log(arr)
     if (arr.length == 1) {
-        currentValue = Number(arr[0]);
+        currentValue = arr[0];
         return;
     }
 
@@ -171,13 +165,6 @@ function calculateInOrder(arr) {
             let c = a / b;
             arr.splice(i - 1, 3, c)
         }
-        else if (arr.includes('-')) {
-            let i = arr.indexOf('-')
-            let a = Number(arr[i - 1]);
-            let b = Number(arr[i + 1]);
-            let c = a - b;
-            arr.splice(i - 1, 3, c)
-        }
         else if (arr.includes('+')) {
             let i = arr.indexOf('+')
             let a = Number(arr[i - 1]);
@@ -185,14 +172,17 @@ function calculateInOrder(arr) {
             let c = a + b;
             arr.splice(i - 1, 3, c)
         }
-
+        else if (arr.includes('-')) {
+            let i = arr.indexOf('-')
+            let a = Number(arr[i - 1]);
+            let b = Number(arr[i + 1]);
+            let c = a - b;
+            arr.splice(i - 1, 3, c)
+        }
         calculateInOrder(arr)
     }
 }
 
-
-updateCurrentDisplay()
-updateCurrentFormula()
 
 
 
