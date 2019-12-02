@@ -7,6 +7,7 @@
     <title>Carousel</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <script src="https://kit.fontawesome.com/794b746eef.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -17,11 +18,13 @@
             <div class="current"></div>
             <div class="next"></div>
             <div id="nextImgdiv"></div> -->
-            <button class="carouselNav" id="navButtonLeftCarousel">L</button>
-            <button class="carouselNav" id="navButtonRightCarousel">R</button>
+            <button class="carouselNav" id="navButtonLeftCarousel"><i class="fas fa-angle-left"></i></button>
+            <button class="carouselNav" id="navButtonRightCarousel"><i class="fas fa-angle-right"></i></button>
+            <button class="carouselNav" id="playPause"><i class="fas fa-play" id="play"></i><i class="fas fa-pause"
+                    id="pause"></i></button>
         </div>
     </div>
-    <script src='carousel4.js'></script>
+    <script src='carousel.js'></script>
 </body>
 
 </html>

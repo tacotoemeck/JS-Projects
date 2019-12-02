@@ -1,37 +1,93 @@
 html {
     margin: 0;
+    background: #2BC0E4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .parentDiv {
     height: 100vh;
     width: 100vw;
+    
 }
 
 .carousel {
     position: relative;
     height: 500px;
     width: 750px;
+
     background-color: cadetblue;
     overflow: hidden;
-   
-    /* display: -webkit-inline-box; */
+    margin: auto;
+    margin-top: 10vh;
+
 }
+
+@media only screen and (max-width: 750px) {
+    .carousel {
+        height: 350px;
+        width: 500px;
+    }
+  
+  }
+
+  @media only screen and (max-width: 500px) {
+    .carousel {
+        height: 235px;
+        width: 350px;
+    }
+  
+  }
+
+  @media only screen and (max-width: 350px) {
+    .carousel {
+        height: 155px;
+        width: 235px;
+    }
+  
+  }
+
 
 .carouselNav {
     position: absolute;
     top: 45%;
     z-index: 100;
+    background: transparent;
+    border: none;
+    font-size: 6vh;
+    color: whitesmoke;
+    opacity: 0.6;
+}
+
+.carouselNav:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.carouselNav:focus{
+    outline: none;
+}
+
+#playPause {
+    top: 90%;
+    right: 20px;
+    font-size: 2vh;
+}
+
+#pause {
+    display: none;
 }
 
 #navButtonLeftCarousel {
-    left: 10px;
+    left: 20px;
 }
 
 #navButtonRightCarousel {
-    right: 10px;
+    right: 20px;
 }
 
-ol {
+.carouselElemenList {
     display: flex;
     width: 100%;
     height: 100%;
@@ -41,25 +97,49 @@ ol {
 
 }
 
-li {
+.carouselElemenList li {
     width: 100%;
     margin: 0;
     display: flex;
-    /* justify-content: stretch; */
     transition: 1s;
     
 }
 
-li  img {
+.carouselElemenList li  img {
     height: 100%;
     width: auto;
     
 }
 
-img {
+.carouselElemenList img {
     width: 100%;
 }
+
+
 
 .transition {
     transform : translateX(-100%);
 }
+
+@media only screen and (max-width: 950px) {
+    .footerContent {
+        margin-top: 0px;
+        
+      }
+  
+      .contactlinks {
+        font-size: 1.5em;
+      
+    }
+  
+    .footerP {
+        font-size: 1.2em;
+    }
+  
+    .footerEmail {
+       
+        font-size: 1em;
+        text-align: center;
+    }
+  
+  }
